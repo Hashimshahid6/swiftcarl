@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\HomeController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,8 @@ use App\Http\Controllers\Backend\HomeController;
 */
 
 
-Route::group(['namespace' => 'Backend\Auth'], function () {
-    Auth::routes(); // This will use the controllers in the Backend/Auth namespace
-});
+// Admin Routes
+Auth::routes();
 
-Route::get('/admin', [HomeController::class, 'root']);
+Route::get('/', [HomeController::class, 'root']);
 Route::get('{any}', [HomeController::class, 'index'])->name('index');
