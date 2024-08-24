@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function root()
     {
-        return view('backend.index');
+        return view('backend.auth.login');
         
     }
     

@@ -1,4 +1,4 @@
-@extends('layouts.master-without-nav')
+@extends('backend.layouts.master-without-nav')
 @section('title')
     Register
 @endsection
