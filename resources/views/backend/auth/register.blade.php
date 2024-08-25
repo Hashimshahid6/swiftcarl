@@ -32,12 +32,13 @@
                                     <p class="text-muted">Get your free webadmin account now.</p>
                                 </div>
                                 <div class="p-2 mt-4">
-                                    <form action="{{route('register.store')}}" method="POST">
+                                    @include('backend.components.alerts')
+                                    <form action="{{route('register.store')}}" method="POST" class="form-horizontal auth-form">
                                         @csrf
                                         <div class="mb-3">
                                             <label class="form-label" for="name">Name</label>
                                             <div class="position-relative input-custom-icon">
-                                                <input type="text" class="form-control" id="name" placeholder="Enter Full Name">
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Full Name">
                                                  <span class="bx bx-user"></span>
                                             </div>
                                         </div>
@@ -45,7 +46,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="useremail">Email</label>
                                             <div class="position-relative input-custom-icon">
-                                                <input type="email" class="form-control" id="useremail" placeholder="Enter email">  
+                                                <input type="email" class="form-control" name="email" id="useremail" placeholder="Enter email">  
                                                 <span class="bx bx-mail-send"></span>
                                             </div>     
                                         </div>
@@ -54,7 +55,7 @@
                                             <label class="form-label" for="userpassword">Password</label>
                                             <div class="position-relative auth-pass-inputgroup input-custom-icon">
                                                 <span class="bx bx-lock-alt"></span>
-                                                <input type="password" class="form-control" id="password-input" placeholder="Enter password">
+                                                <input type="password" class="form-control" id="password-input" name="password" placeholder="Enter password">
                                             </div>
                                         </div>
 
@@ -92,7 +93,7 @@
                                         </div>
 
                                         <div class="mt-4 text-center">
-                                            <p class="mb-0">Already have an account ? <a href="auth-login" class="fw-medium text-primary"> Login</a></p>
+                                            <p class="mb-0">Already have an account ? <a href="{{route('login.index')}}" class="fw-medium text-primary"> Login</a></p>
                                         </div>
                                     </form>
                                 </div>

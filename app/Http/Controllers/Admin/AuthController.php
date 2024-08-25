@@ -36,6 +36,7 @@ class AuthController extends AdminController
         // dd(Hash::make(12345678));
         $remember = !empty($request->remember) ? true : false;
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
+            session()->flash('success', 'Login successful');
             return redirect()->route('dashboard');
         } else {
             return redirect()->back()->with('error', 'Invalid credentials');

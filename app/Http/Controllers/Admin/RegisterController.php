@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -28,7 +31,28 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if($request->name == '' || $request->email == '' || $request->password == ''){
+            return redirect()->back()->with('error', 'Please fill all the fields');
+        }
+        $user = new User();
+        // dd($user);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        session()->flash('success', 'Registration successful');
+        return redirect()->route('login.index');
     }
 
     /**
