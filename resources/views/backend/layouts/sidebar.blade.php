@@ -47,6 +47,15 @@
                 </li>
 
                 <li class="menu-title" data-key="t-applications">Applications</li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="bx bx-menu icon nav-icon"></i>
+                        <span class="menu-item" data-key="t-apps">Menu</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('menu.index')}}" data-key="t-menu-list">Menu List</a></li>
+                    </ul>
+                </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
