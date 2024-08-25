@@ -33,56 +33,45 @@
                                         <p class="text-muted">Sign in to continue to webadmin.</p>
                                     </div>
                                     <div class="p-2 mt-4">
-                                        <form method="POST" action="{{ route('login') }}" class="auth-input">
+                                        @include('backend.components.alerts')
+                                        <form method="POST" action="{{ route('login.store') }}">
                                             @csrf
-                                            <div class="mb-2">
-                                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                                <input id="email" type="email"
-                                                    class="form-control @error('email') is-invalid @enderror" name="email"
-                                                    value="{{ old('email') }}" required autocomplete="email" autofocus
-                                                    value="admin@themesbrand.com">
-                                                @error('email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
+                                            <div class="mb-3">
+                                                <label class="form-label" for="email">Email</label>
+                                                <div class="position-relative input-custom-icon">
+                                                    <input type="text" class="form-control" id="email"
+                                                        placeholder="Enter Email" name="email" required>
+                                                    <span class="bx bx-user"></span>
+                                                </div>
                                             </div>
 
                                             <div class="mb-3">
                                                 <div class="float-end">
-                                                    <a href="{{ route('password.update') }}"
+                                                    <a href="auth-recoverpw"
                                                         class="text-muted text-decoration-underline">Forgot password?</a>
                                                 </div>
-                                                <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
+                                                <label class="form-label" for="password-input">Password</label>
                                                 <div class="position-relative auth-pass-inputgroup input-custom-icon">
                                                     <span class="bx bx-lock-alt"></span>
-                                                    <input type="password"
-                                                        class="form-control @error('password') is-invalid @enderror"
-                                                        placeholder="Enter password" id="password-input" name="password"
-                                                        required autocomplete="current-password" value="12345678">
+                                                    <input type="password" class="form-control" name="password" id="password-input"
+                                                        placeholder="Enter password" required>
                                                     <button type="button"
                                                         class="btn btn-link position-absolute h-100 end-0 top-0"
                                                         id="password-addon">
                                                         <i class="mdi mdi-eye-outline font-size-18 text-muted"></i>
                                                     </button>
                                                 </div>
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
                                             </div>
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember"
-                                                    id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="remember">Remember
+                                            <div class="form-check py-1">
+                                                <input type="checkbox" class="form-check-input" id="auth-remember-check" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="auth-remember-check">Remember
                                                     me</label>
                                             </div>
 
-                                            <div class="mt-4">
-                                                <button class="btn btn-primary w-100" type="submit">Sign
-                                                    In</button>
+                                            <div class="mt-3">
+                                                <button class="btn btn-primary w-100 waves-effect waves-light"
+                                                    type="submit">Log In</button>
                                             </div>
 
                                             <div class="mt-4 text-center">
@@ -92,28 +81,29 @@
 
                                                 <ul class="list-inline mt-2">
                                                     <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
+                                                        <a href="javascript:void()"
                                                             class="social-list-item bg-primary text-white border-primary">
                                                             <i class="bx bxl-facebook"></i>
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
+                                                        <a href="javascript:void()"
                                                             class="social-list-item bg-info text-white border-info">
                                                             <i class="bx bxl-linkedin"></i>
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <a href="javascript:void(0)"
+                                                        <a href="javascript:void()"
                                                             class="social-list-item bg-danger text-white border-danger">
                                                             <i class="bx bxl-google"></i>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </div>
+
                                             <div class="mt-4 text-center">
-                                                <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}"
-                                                        class="fw-medium text-primary"> Register</a></p>
+                                                <p class="mb-0">Don't have an account ? <a href="{{ route('register.index') }}"
+                                                        class="fw-medium text-primary"> Signup now </a> </p>
                                             </div>
                                         </form>
                                     </div>
@@ -141,7 +131,10 @@
             </div><!-- end container -->
         </div>
         <!-- end authentication section -->
+
     @endsection
     @section('scripts')
         <script src="{{ URL::asset('build/js/pages/pass-addon.init.js') }}"></script>
+        <!-- App js -->
+        <script src="{{ URL::asset('build/js/app.js') }}"></script>
     @endsection

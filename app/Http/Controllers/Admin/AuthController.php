@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class MenuController extends Controller
+class AuthController extends AdminController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('backend.auth.login');
     }
 
     /**
@@ -27,7 +28,18 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        // dd($request->all());
+        // dd(Hash::make(12345678));
+        $remember = !empty($request->remember) ? true : false;
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
+            return redirect()->route('dashboard');
+        } else {
+            return redirect()->back()->with('error', 'Invalid credentials');
+        }
     }
 
     /**
@@ -35,7 +47,6 @@ class MenuController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -61,4 +72,12 @@ class MenuController extends Controller
     {
         //
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('login');
+    }//
 }

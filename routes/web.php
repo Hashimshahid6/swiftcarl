@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,11 @@ use App\Http\Controllers\MenuController;
 */
 
 
-// Admin Routes
-Auth::routes();
 
-Route::get('/', [HomeController::class, 'root']);
-Route::get('{any}', [HomeController::class, 'index'])->name('index');
+Route::resource('login', AuthController::class);
+Route::resource('register', RegisterController::class);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
